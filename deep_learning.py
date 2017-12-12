@@ -65,22 +65,8 @@ def model(x_train, y_train, x_test, y_test, tensorboard = True, path = "/home/go
     loss='categorical_crossentropy',
     metrics=['accuracy'])
 
-
-    # for observing live changes to network
-    if tensorboard:
-        if not os.path.isdir(path + '/my_log_dir'):
-            os.makedirs(path + '/my_log_dir')
-        tensorboard = TensorBoard(
-            # Log files will be written at this location
-            log_dir=path+'/my_log_dir',
-            # We will record activation histograms every 1 epoch
-            histogram_freq=1,
-            # We will record embedding data every 1 epoch
-            embeddings_freq=1,
-        )
-
     # Training the network
-    hist = model.fit(x_train, y_train, epochs=20, batch_size=256, validation_data=(x_test, y_test),callbacks=[tensorboard])
+    hist = model.fit(x_train, y_train, epochs=20, batch_size=256, validation_data=(x_test, y_test))
     # history.append(hist)
     print(hist.history)
     if not os.path.isfile("history.csv"):
